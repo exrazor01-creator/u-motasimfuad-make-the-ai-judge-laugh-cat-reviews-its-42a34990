@@ -11,9 +11,12 @@ import os
 REVIEW = "One star. My human woke me at 3 AM to ask why I was awake, then fell asleep on MY couch, in MY sunbeam, and still hasn't served breakfast."
 
 def main():
+    # The bounty judges one line only: keep the review a single line of
+    # at most 200 characters, with no trailing newline in the entry file.
     assert 1 <= len(REVIEW) <= 200, f"review length {len(REVIEW)} out of range"
     assert "\n" not in REVIEW and "\r" not in REVIEW, "review must be a single line"
     assert REVIEW.strip(), "review must not be only whitespace"
+    assert REVIEW == REVIEW.strip(), "review must not start or end with whitespace"
     os.makedirs("/output", exist_ok=True)
     with open("/output/entry.txt", "w", encoding="utf-8") as f:
         f.write(REVIEW)
